@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.mtons.mblog.modules.mapper">
+    <!-- =============映射关系标签=============
+    属性type:写po类的包名类名，由于之前定义了po类的别名，这里就写这个别名
+    属性id：是这个映射标签的唯一标识
+    id标签是查询结果集中的唯一标识
+    属性column：查询出来的列名
+    属性property：是po类里所指定的列名
+    通常会在原列名后面加下划线，这是固定的，这里就是id后面_
+     -->
+
+    <!--发布文章-->
+    <insert id="SavePost" parameterType="com.mtons.mblog.modules.entity.Post">
+       insert into mto_post(id,author_id,channel_id,comments,created,favors,featured,status,summary,tags,thumbnail)
+       VALUE
+       (#{id},#{author_id},#{channel_id},#{comments},#{created},#{favors},#{featured},#{status},#{summary},#{tags},#{thumbnail})
+    </insert>
+
+    <!--    删除文章 -->
+    <delete id="DelPostById" parameterType="Long">
+        delete from mto_post where id = #{id}
+    </delete>
+
+
+    <!--    查询文章 1.先查询-->
+    <select id="listPost" parameterType="Long" resultMap="com.mtons.mblog.modules.entity.Post">
+        select *
+        from mto_post
+        where id = #{id}
+    </select>
+
+    <!--    修改   文章-->
+    <update id="EditPostById" parameterType="com.mtons.mblog.modules.entity.Post">
+                 update mto_post
+                 set
+                  author_id=#{author_id},
+                  channel_id=#{channel_id},
+                  comments=#{comments},
+                  created=#{created},
+                  favors=#{favors},
+                  featured=#{featured},
+                  status=#{status},
+                  summary=#{summary},
+                  tags=#{tags},
+                  thumbnail=#{thumbnail}
+                 where id=#{id}
+    </update>
+
+    <!--      查询当前作者发布的文章-->
+    <select id="findAllByAuthorId" resultMap="com.mtons.mblog.modules.entity.Post">
+        select  *
+        from mto_post
+         where  authorId=#{authorId} LIMIT 0,pageable
+    </select>
+
+    <!--      更新文章评论-->
+    <update id="updateComments" parameterType="com.mtons.mblog.modules.entity.Post">
+        update  mto_comment
+        set
+        author_id=#{author_id},
+        content=#{content},
+        created=#{created},
+        pid=#{pid},
+        post_id=#{post_id},
+        status=#{status}
+       where
+        id=#{id}
+        AND
+         increment=#{increment}
+    </update>
+
+
+    <!--    更新收藏 -->
+    <update id="updateFavors" parameterType="com.mtons.mblog.modules.entity.Post">
+        update mto_favorite
+        set created=#{created},post_id=#{post_id},user_id=#{user_id}
+        where
+        id=#{id}
+         AND
+         increment=#{increment}
+    </update>
+
+    <!--     更新文章-->
+    <update id="updateViews" parameterType="com.mtons.mblog.modules.entity.Post">
+        update mto_post
+        set
+         author_id=#{author_id},
+                  channel_id=#{channel_id},
+                  comments=#{comments},
+                  created=#{created},
+                  favors=#{favors},
+                  featured=#{featured},
+                  status=#{status},
+                  summary=#{summary},
+                  tags=#{tags},
+                  thumbnail=#{thumbnail}
+                 where id=#{id}
+    </update>
+
+    <select id="findMapByIds" parameterType="Set<Long>" resultMap="com.mtons.mblog.modules.entity.Post">
+        select  *
+         from
+          mto_post
+          where
+          ids=#{id}
+    </select>
+
+
+    <select id="findAll" resultMap="com.mtons.mblog.modules.entity.Post">
+        select
+        *
+        from
+         mto_post
+    </select>
+
+
+
+
+
+
+</mapper>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.mtons.mblog.modules.mapper">
+    <!-- =============映射关系标签=============
+    属性type:写po类的包名类名，由于之前定义了po类的别名，这里就写这个别名
+    属性id：是这个映射标签的唯一标识
+    id标签是查询结果集中的唯一标识
+    属性column：查询出来的列名
+    属性property：是po类里所指定的列名
+    通常会在原列名后面加下划线，这是固定的，这里就是id后面_
+     -->
+
+
+    <!-- 查询全部-->
+    <select id="SelectAllStatus" parameterType="com.mtons.mblog.modules.entity.Channel"
+            resultMap="com.mtons.mblog.modules.entity.Channel">
+       select *
+       form mto_channel
+    </select>
+
+    <!-- 删除-->
+    <delete id="DelStatus" parameterType="Integer">
+            delete from mto_channel where id = #{id}
+    </delete>
+
+    <!--    获取最大maxWeight-->
+    <select id="maxWeight" resultMap="Integer">
+           select max(weight)  from  mto_channel
+       </select>
+
+
+    <!--    查询全部-->
+    <select id="findAllBySort" parameterType="" resultMap=""></select>
+
+
+    <!--    根据ID查询-->
+    <select id="findAll" parameterType="Integer" resultMap="com.mtons.mblog.modules.entity.Channel">
+        select  * from   mto_channel id = #{id}
+    </select>
+
+    <!--    保存通道-->
+    <insert id="save" parameterType="com.mtons.mblog.modules.entity.Channel">
+        insert into  mto_channel(id,key_,name,status,thumbnail,weight)
+        value (#{id},#{key_},#{name},#{status},#{thumbnail},0)
+    </insert>
+
+    <!--    删除-->
+    <delete id="deleteById" parameterType="Integer">
+         delete from mto_channel where id = #{id}
+    </delete>
+
+    <!--   总数查询-->
+    <select id="count" resultMap="Integer">
+       select cout(*) from   mto_channel
+   </select>
+
+    <!--根据ID查询 传入参数:Set<Integer> id-->
+    <select id="findMapByIds" resultMap="com.mtons.mblog.modules.entity.Channel" parameterType="Integer">
+     select * from mto_channel where id=#{id}
+    </select>
+
+    <!--   根据ID查询 传入参数:Collection<Integer> id-->
+    <select id="findAllById" parameterType="Integer" resultMap="com.mtons.mblog.modules.entity.Channel">
+         select * from mto_channel where id=#{id}
+    </select>
+
+
+</mapper>

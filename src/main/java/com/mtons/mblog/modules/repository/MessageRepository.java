@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.transaction.annotation.Transactional;
+
 
 /**
  * @author langhsu
@@ -18,7 +18,6 @@ public interface MessageRepository extends JpaRepository<Message, Long>, JpaSpec
 
     /**
      * 查询我的未读消息
-     *
      * @param userId
      * @return
      */

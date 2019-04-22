@@ -144,7 +144,6 @@ public class UserServiceImpl implements UserService {
         po.setPassword(MD5.md5(user.getPassword()));
         po.setStatus(EntityStatus.ENABLED);
         po.setCreated(now);
-
         userRepository.save(po);
 
         return BeanMapUtils.copy(po);

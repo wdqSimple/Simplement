@@ -1,12 +1,13 @@
 spring:
     datasource:
         #schema: classpath*:scripts/schema.sql
-        #continue-on-error: false
-        #sql-script-encoding: utf-8
+        #continue-on-error: false  47.99.194.149
+        #        url: jdbc:mysql://localhost：/db_mblog?useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8
+        #sql-script-encoding: utf-8   192.168.105.130
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://localhost/db_mblog?useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8
+        url: jdbc:mysql://localhost:/db_mblog?useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8
         username: root
-        password: root
+        password:
     flyway:
         enabled: true
     jpa:

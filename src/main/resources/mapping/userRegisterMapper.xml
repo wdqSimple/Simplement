@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.mtons.mblog.modules.mapper">
+    <!-- =============映射关系标签=============
+    属性type:写po类的包名类名，由于之前定义了po类的别名，这里就写这个别名
+    属性id：是这个映射标签的唯一标识
+    id标签是查询结果集中的唯一标识
+    属性column：查询出来的列名
+    属性property：是po类里所指定的列名
+    通常会在原列名后面加下划线，这是固定的，这里就是id后面_
+     -->
+    <!--    <resultMap type="com.po.UserinfoPO" id="userinfoMap">-->
+    <!--        <result column="userid" property="userid"/>-->
+    <!--        <result column="loginname" property="loginname"/>-->
+    <!--        <result column="loginpass" property="loginpass"/>-->
+    <!--        <result column="username" property="username"/>-->
+    <!--        <result column="upower" property="upower"/>-->
+    <!--        <result column="birthday" property="birthday"/>-->
+    <!--        <result column="sex" property="sex"/>-->
+    <!--    </resultMap>-->
+
+
+    <!--注册信息，查询当前用户名是否被注册-->
+    <select id="chenckedUsername" resultMap="String" parameterType="String">
+        <!-- 用include标签引入sql片段，refid写定义sql片段的id，where标签不要写在片段里 -->
+        select username from mto_user
+        <where>
+            username=#{username}
+        </where>
+    </select>
+
+
+    <!-- 添加用户信息 -->
+    <insert id="saveRegisterMessage" parameterType="com.mtons.mblog.modules.entity.User">
+        insert into mto_user(username,password,avatar,name,gender,email,createdh,lastLogin,signature)
+        values
+        (#{id},#{username},#{password},#{avatar},#{name},#{gender},#{email},0,0,#{createdh},#{lastLogin},null)
+    </insert>
+
+
+    <!-- 修改用户信息，修改昵称 修改个性签名 -->
+    <update id="updateBaseMessage" parameterType="com.mtons.mblog.modules.entity.User">
+             update mto_user
+             set name=#{name},signature=#{signature}
+             where id=#{id}
+         </update>
+
+
+    <!-- 更新/修改密码-->
+    <update id="updatePassword" parameterType="com.mtons.mblog.modules.entity.User">
+             update mto_user
+             set password=#{password}
+             where id=#{id}
+         </update>
+
+
+    <!--    查询当前邮箱-->
+   <select id="selectEmail" parameterType="com.mtons.mblog.modules.entity.User"  resultMap="String" >
+               select  emali
+               from mto_user
+               where id=#{id}
+   </select>
+
+    <!-- 更新/更改邮箱-->
+    <update id="updateEmali" parameterType="com.mtons.mblog.modules.entity.User">
+             update mto_user
+             set email=#{email}
+             where id=#{id}
+         </update>
+
+
+    <!--    &lt;!&ndash; 查询用户列表 &ndash;&gt;-->
+    <!--    <select id="userList" resultMap="userinfoMap" parameterType="com.po.UserinfoPO">-->
+    <!--        &lt;!&ndash; 用include标签引入sql片段，refid写定义sql片段的id，where标签不要写在片段里 &ndash;&gt;-->
+    <!--        select <include refid="zd"/> from userinfo-->
+    <!--    </select>-->
+
+    <!--    &lt;!&ndash; 查询修改用户信息的id &ndash;&gt;-->
+    <!--    <select id="updateid" resultMap="userinfoMap" parameterType="com.po.UserinfoPO">-->
+    <!--        &lt;!&ndash; 用include标签引入sql片段，refid写定义sql片段的id，where标签不要写在片段里 &ndash;&gt;-->
+    <!--        select <include refid="zd"/> from userinfo-->
+    <!--        <where>userid=#{userid}</where>-->
+    <!--    </select>-->
+
+    <!--    &lt;!&ndash; 修改用户信息 &ndash;&gt;-->
+    <!--    <update id="update" parameterType="com.po.UserinfoPO">-->
+    <!--         update userinfo -->
+    <!--         set loginname=#{loginname},loginpass=#{loginpass},username=#{username},-->
+    <!--             upower=#{upower},birthday=#{birthday},sex=#{sex}-->
+    <!--         where userid=#{userid}     -->
+    <!--     </update>-->
+
+
+    <!--    &lt;!&ndash; 根据用户名模糊查询，根据权限查询 &ndash;&gt;-->
+    <!--    <select id="select" resultMap="userinfoMap" parameterType="java.util.Map">-->
+    <!--        &lt;!&ndash; 用include标签引入sql片段，refid写定义sql片段的id，where标签不要写在片段里 &ndash;&gt;-->
+    <!--        select <include refid="zd"/> from userinfo-->
+    <!--        &lt;!&ndash; 当页面没有输入用户名和选择权限，就让它的条件永远为真，就变成全查询了 &ndash;&gt;-->
+    <!--        <where>-->
+    <!--            <if test="username == null and username = '' and upower == -1">-->
+    <!--                and 1=1-->
+    <!--            </if>-->
+    <!--            <if test="username != null and username !=''">-->
+    <!--                and username LIKE '%${username}%'-->
+    <!--            </if>-->
+    <!--            <if test="upower != -1">-->
+    <!--                and upower=#{upower}-->
+    <!--            </if>-->
+    <!--        </where>-->
+    <!--    </select>-->
+
+</mapper>

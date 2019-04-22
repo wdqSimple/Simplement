@@ -1,10 +1,13 @@
 package com.mtons.mblog;
 
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
+
 
 /**
  * SprintBootApplication
@@ -12,6 +15,7 @@ import org.springframework.context.ApplicationContext;
 @Slf4j
 @SpringBootApplication
 @EnableCaching
+@MapperScan("com.mtons.mblog.modules.mapper")
 public class BootApplication {
 
     public static void main(String[] args) {

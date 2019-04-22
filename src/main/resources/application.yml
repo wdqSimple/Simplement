@@ -1,5 +1,5 @@
 server:
-    port: 8080
+    port: 8000
     use-forward-headers: true
     undertow:
         io-threads: 2
@@ -70,7 +70,7 @@ site:
         # 注册开关
         register: true
         # 注册开启邮箱验证
-        register_email_validate: false
+        register_email_validate: true
         # 发布文章开关
         post: true
         # 评论开关
@@ -84,3 +84,9 @@ site:
         editor: markdown
         thumbnail_channel_size: 200x112
         thumbnail_post_size: 360x200
+
+    mybatis:
+        #实体类所做包
+        type-aliases-package: com.mtons.mblog.modules.mapper
+        #mapper.xml所在位置
+        mapper-locations: classpath:mapping/*.xml

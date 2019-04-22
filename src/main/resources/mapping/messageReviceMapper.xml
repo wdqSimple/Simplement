@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.mtons.mblog.modules.mapper">
+    <!-- =============映射关系标签=============
+    属性type:写po类的包名类名，由于之前定义了po类的别名，这里就写这个别名
+    属性id：是这个映射标签的唯一标识
+    id标签是查询结果集中的唯一标识
+    属性column：查询出来的列名
+    属性property：是po类里所指定的列名
+    通常会在原列名后面加下划线，这是固定的，这里就是id后面_-->
+
+    <!-- 通过ID查询-->
+    <select id="findAllByUserId" parameterType="Long" resultMap="com.mtons.mblog.modules.entity.Message">
+           select  * from mto_message
+           where
+           user_id=#{userId} limit 0,pageable
+    </select>
+
+    <!--countByUserIdAndStatus查询我的未读消息-->
+    <select id="countByUserIdAndStatus" parameterType="Integer" resultMap="com.mtons.mblog.modules.entity.Message">
+    select * from mto_message
+    where user_id=#{userId}
+    AND status=0
+</select>
+
+    <!--标记我的消息为已读 -->
+    <update id="updateReadedByUserId" parameterType="Long" parameterMap="Boolean">
+        update mto_message
+        set
+        status=1
+        where
+        userId=#{user_id}
+    </update>
+
+    <!--发送消息-->
+    <insert id="send" parameterType="com.mtons.mblog.modules.entity.Message">
+    insert into mto_message(id,created,event,from_id,post_id,status,user_id)
+    value (id=#{id},created=#{created},event=#{event},from_id=#{from_id},post_id=#{post_id},status=#{status},user_id=#{user_id})
+    </insert>
+
+    <!--未读消息数量-->
+    <select id="unread4Me" parameterType="Long" resultMap="Integer">
+        select status(*) from mto_message where userId=#{user_id}
+    </select>
+
+    <!--更新已经读取的消息-->
+    <update id="readed4Me" parameterType="Long">
+        update mto_message
+        set
+         status=1
+        where
+        userId=#{user_id}
+    </update>
+
+    <!--根据文章ID清理消息-->
+    <delete id="deleteByPostId" parameterType="Long">
+       delete
+       from
+       mto_message
+       where
+       postId=#{post_id}
+    </delete>
+
+
+</mapper>
+
+
+
