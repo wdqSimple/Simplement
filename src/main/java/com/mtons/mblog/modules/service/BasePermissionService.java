@@ -4,18 +4,16 @@ import com.mtons.mblog.modules.data.PermissionTree;
 import com.mtons.mblog.modules.entity.Permission;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * @author - langhsu on 2018/2/11
- */
-public interface PermissionService {
-
+@Service
+public interface BasePermissionService {
     /**
      * 分页查询权限
      * @param pageable 分页对象
-     * @param name 权限名称，模糊匹配，如果为null则忽略改查询条件
+     * @param name     权限名称，模糊匹配，如果为null则忽略改查询条件
      */
     Page<Permission> paging(Pageable pageable, String name);
 
@@ -44,5 +42,4 @@ public interface PermissionService {
      * @return Permission
      */
     Permission get(long id);
-
 }

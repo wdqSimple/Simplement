@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mtons.mblog.modules.mapper">
+
+    <select id="findAll" resultMap="com.mtons.mblog.modules.entity.Comment">
+        select * from mto_comment
+        <where>
+            username=#{username}
+        </where>
+    </select>
+
+    <select id="findAllByPostId" resultMap="com.mtons.mblog.modules.entity.Comment">
+        select * from mto_comment
+        <where>
+            postId=#{postId}
+        </where>
+    </select>
+
+    <select id="findAllByAuthorId" parameterType="String" resultMap="com.mtons.mblog.modules.entity.Comment">
+        select * from mto_comment
+        <where>
+            authorId=#{authorId}
+        </where>
+    </select>
+
+    <delete id="removeByIdIn" parameterType="String">
+          delete from mto_comment where ids = #{id}
+    </delete>
+
+    <delete id="removeByPostId" parameterType="Long">
+         delete from mto_comment where  post_id  = #{postId}
+    </delete>
+
+    <select id="countByAuthorIdAndPostId" parameterType="String" resultMap="IInteger">
+        select count(*) from mto_comment
+        where
+        author_id =#{author_id}
+        AND
+        postId=#{post_id}
+    </select>
+
+    <select id="findAll" resultMap="com.mtons.mblog.modules.entity.Comment">
+        select * from mto_comment
+    </select>
+
+    <select id="findById" parameterType="String" resultMap="com.mtons.mblog.modules.entity.Comment">
+        select * from mto_comment
+        where
+        id=#{id}
+    </select>
+
+    <select id="findByIdS" parameterType="String" resultMap="com.mtons.mblog.modules.entity.Comment">
+        select * from mto_comment
+         where
+         id=#{id}
+    </select>
+
+    <insert id="save" parameterType="com.mtons.mblog.modules.entity.Comment">
+        insert into  mto_comment(id,author_id,content,created,pid,post_id,status)
+        value
+        (#{id},#{author_id},#{content},#{created},#{pid},#{post_id},#{status})
+    </insert>
+
+    <delete id="deleteById" parameterType="Long">
+          delete from mto_comment where id = #{id}
+    </delete>
+
+
+    <select id="count" resultMap="IInteger">
+        select count(*) from ;mto_comment
+    </select>
+
+
+    <delete id="deleteByPostId" parameterType="Long">
+         delete from mto_comment where id = #{postId}
+    </delete>
+
+    <delete id="delete" parameterType="Long">
+         delete from mto_comment
+         where id = #{postId}
+         and
+        author_id=#{authorId}
+    </delete>
+
+</mapper>

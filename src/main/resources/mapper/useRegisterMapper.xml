@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mtons.mblog.modules.mapper">
+
+    <select id="selectUsername" resultMap="String" parameterType="String">
+        select username from mto_user
+        <where>
+            username=#{username}
+        </where>
+    </select>
+    <!--注册信息，查询当前用户名是否被注册-->
+
+
+    <!-- 添加用户信息 -->
+    <insert id="saveRegisterMessage" parameterType="com.mtons.mblog.modules.entity.User">
+        insert into mto_user(username,password,avatar,name,gender,email,createdh,lastLogin,signature)
+        values
+        (#{id},#{username},#{password},#{avatar},#{name},#{gender},#{email},0,0,#{createdh},#{lastLogin},null)
+    </insert>
+
+
+    <select id="findMapByIds" parameterType="Long" resultMap="com.mtons.mblog.modules.entity.User">
+        select * from mto_user
+        where
+        ids=#{id}
+    </select>
+
+
+</mapper>

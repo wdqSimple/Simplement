@@ -3,6 +3,7 @@ package com.mtons.mblog.modules.mapper;
 import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Map;
 import java.util.Set;
@@ -12,7 +13,7 @@ import java.util.Set;
 public interface UseRegisterMapper {
 
     //查询当前名字是否被占用
-    String chenckedUsername(String username);
+    String selectUsername(@Param("username") String username);
 
     //保存当前注册信息
     User saveRegisterMessage(User user);

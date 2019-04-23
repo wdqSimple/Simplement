@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mtons.mblog.modules.mapper">
+
+    <select id="findAllByParentId" resultMap="com.mtons.mblog.modules.entity.Permission">
+      select * from shiro_permission
+       where
+        parent_id=#{parentId}
+    </select>
+
+    <select id="countUsed" resultMap="Integer">
+        select * from shiro_permission
+       where
+        user_id=#{permId}
+    </select>
+
+    <select id="maxWeight" parameterType="Integer">
+         select cout(*) from shiro_permission
+    </select>
+
+    <select id="findAll" parameterType="com.mtons.mblog.modules.entity.Permission">
+        SELECT * from shiro_permission
+    </select>
+
+    <select id="findAll"  parameterType="com.mtons.mblog.modules.entity.Permission">
+        SELECT * from shiro_permission
+    </select>
+
+    <select id="findAll" parameterMap="Long" parameterType="com.mtons.mblog.modules.entity.Permission">
+        SELECT * from shiro_permission where id=#{id}
+    </select>
+
+
+
+</mapper>

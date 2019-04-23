@@ -23,7 +23,6 @@ public interface basePostMapper {
     Boolean DelPostById(@Param("id") long id);
 
     //查询文章信息
-
     List<Post> listPost(@Param("id") long id);
 
     //修改文章

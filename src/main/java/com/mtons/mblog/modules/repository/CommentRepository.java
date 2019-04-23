@@ -29,4 +29,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long>, JpaSpec
 	List<Comment> removeByIdIn(Collection<Long> ids);
 	List<Comment> removeByPostId(long postId);
 	long countByAuthorIdAndPostId(long authorId, long postId);
+
+
 }

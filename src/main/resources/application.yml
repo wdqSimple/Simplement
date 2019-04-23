@@ -86,7 +86,7 @@ site:
         thumbnail_post_size: 360x200
 
     mybatis:
-        #实体类所做包
-        type-aliases-package: com.mtons.mblog.modules.mapper
-        #mapper.xml所在位置
-        mapper-locations: classpath:mapping/*.xml
+            #实体类所做包
+            type-aliases-package: com.mtons.mblog.modules.entity
+            #mapper.xml所在位置
+            mapper-locations: classpath:mapper/*.xml

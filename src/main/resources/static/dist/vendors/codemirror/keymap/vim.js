@@ -45,7 +45,7 @@
   'use strict';
 
   var defaultKeymap = [
-    // Key to key mapping. This goes first to make it possible to override
+    // Key to key mapper. This goes first to make it possible to override
     // existing mappings.
     { keys: '<Left>', type: 'keyToKey', toKeys: 'h' },
     { keys: '<Right>', type: 'keyToKey', toKeys: 'l' },
@@ -771,7 +771,7 @@
             for (var key in mapping) {
               newMapping[key] = mapping[key];
             }
-            // Modify it point to the new mapping with the proper context.
+            // Modify it point to the new mapper with the proper context.
             newMapping.keys = lhs;
             if (ctx && !newMapping.context) {
               newMapping.context = ctx;
@@ -801,7 +801,7 @@
               if (mapping.context) {
                 this._mapCommand(mapping);
               } else {
-                // `mapping` applies to all contexts so create keymap copies
+                // `mapper` applies to all contexts so create keymap copies
                 // for each context except the one being cleared.
                 var contexts = ['normal', 'insert', 'visual'];
                 for (var j in contexts) {
@@ -4367,13 +4367,13 @@
             }
             this.parseCommandArgs_(inputStream, params, command);
             if (command.type == 'exToKey') {
-              // Handle Ex to Key mapping.
+              // Handle Ex to Key mapper.
               for (var i = 0; i < command.toKeys.length; i++) {
                 CodeMirror.Vim.handleKey(cm, command.toKeys[i], 'mapping');
               }
               return;
             } else if (command.type == 'exToEx') {
-              // Handle Ex to Ex mapping.
+              // Handle Ex to Ex mapper.
               this.processCommand(cm, command.toInput);
               return;
             }
@@ -4499,7 +4499,7 @@
           if (ctx) { throw Error('Mode not supported for ex mappings'); }
           var commandName = lhs.substring(1);
           if (rhs != ':' && rhs.charAt(0) == ':') {
-            // Ex to Ex mapping
+            // Ex to Ex mapper
             this.commandMap_[commandName] = {
               name: commandName,
               type: 'exToEx',
@@ -4507,7 +4507,7 @@
               user: true
             };
           } else {
-            // Ex to key mapping
+            // Ex to key mapper
             this.commandMap_[commandName] = {
               name: commandName,
               type: 'exToKey',
@@ -4517,7 +4517,7 @@
           }
         } else {
           if (rhs != ':' && rhs.charAt(0) == ':') {
-            // Key to Ex mapping.
+            // Key to Ex mapper.
             var mapping = {
               keys: lhs,
               type: 'keyToEx',
@@ -4526,7 +4526,7 @@
             if (ctx) { mapping.context = ctx; }
             defaultKeymap.unshift(mapping);
           } else {
-            // Key to key mapping
+            // Key to key mapper
             var mapping = {
               keys: lhs,
               type: 'keyToKey',
@@ -4539,7 +4539,7 @@
       },
       unmap: function(lhs, ctx) {
         if (lhs != ':' && lhs.charAt(0) == ':') {
-          // Ex to Ex or Ex to key mapping
+          // Ex to Ex or Ex to key mapper
           if (ctx) { throw Error('Mode not supported for ex mappings'); }
           var commandName = lhs.substring(1);
           if (this.commandMap_[commandName] && this.commandMap_[commandName].user) {
@@ -4547,7 +4547,7 @@
             return;
           }
         } else {
-          // Key to Ex or key to key mapping
+          // Key to Ex or key to key mapper
           var keys = lhs;
           for (var i = 0; i < defaultKeymap.length; i++) {
             if (keys == defaultKeymap[i].keys
@@ -4557,7 +4557,7 @@
             }
           }
         }
-        throw Error('No such mapping.');
+        throw Error('No such mapper.');
       }
     };
 
@@ -4573,7 +4573,7 @@
         var mapArgs = params.args;
         if (!mapArgs || mapArgs.length < 2) {
           if (cm) {
-            showConfirm(cm, 'Invalid mapping: ' + params.input);
+            showConfirm(cm, 'Invalid mapper: ' + params.input);
           }
           return;
         }
@@ -4586,7 +4586,7 @@
         var mapArgs = params.args;
         if (!mapArgs || mapArgs.length < 1) {
           if (cm) {
-            showConfirm(cm, 'No such mapping: ' + params.input);
+            showConfirm(cm, 'No such mapper: ' + params.input);
           }
           return;
         }
@@ -4607,7 +4607,7 @@
         var setCfg = params.setCfg || {};
         if (!setArgs || setArgs.length < 1) {
           if (cm) {
-            showConfirm(cm, 'Invalid mapping: ' + params.input);
+            showConfirm(cm, 'Invalid mapper: ' + params.input);
           }
           return;
         }

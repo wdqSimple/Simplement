@@ -14,13 +14,17 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-@Service("UseRegisterService")
+@Service
 public class UseRegisterServiceImpl implements UseRegisterService {
 
     @Autowired
     UseRegisterMapper userRegisterMapper;
 
 
+    @Override
+    public String selectUsername(String username) {
+        return userRegisterMapper.selectUsername(username);
+    }
 
     @Override
     public User saveRegisterMessage(User user) {
@@ -28,7 +32,7 @@ public class UseRegisterServiceImpl implements UseRegisterService {
         Assert.hasLength(user.getUsername(), "用户名不能为空!");
         Assert.hasLength(user.getPassword(), "密码不能为空!");
         String userName=user.getUsername();
-        String check = userRegisterMapper.chenckedUsername(userName);
+        String check = userRegisterMapper.selectUsername(userName);
         if(!check.equals("null")){
             Assert.isNull(check, "用户名已经存在!");
         }
